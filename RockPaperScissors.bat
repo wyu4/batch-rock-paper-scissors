@@ -25,13 +25,14 @@ goto getmenuinput
 :play
 cls
 color 0F
-set /a PC_CHOICE=%RANDOM% * 3 / 32767 + 1
-echo %PC_CHOICE%
+::echo %PC_CHOICE%
 echo [1] Rock
 echo [2] Paper
 echo [3] Scissors
 echo.
 set /p USER_CHOICE=Your choice: 
+
+set /a PC_CHOICE=%RANDOM% * 3 / 32767 + 1
 
 if "%USER_CHOICE%"=="1" goto rock
 
