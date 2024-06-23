@@ -2,6 +2,7 @@
 title Rock Paper Scissors
 
 :menu
+cls
 color 0B
 
 echo -------------------------
@@ -24,29 +25,35 @@ goto getmenuinput
 :play
 cls
 color 0F
-set /a PC_CHOICE=%RANDOM% * 3 / 32768
+set /a PC_CHOICE=%RANDOM% * 3 / 32767 + 1
+echo %PC_CHOICE%
 echo [1] Rock
 echo [2] Paper
 echo [3] Scissors
 echo.
 set /p USER_CHOICE=Your choice: 
 
-if "%USER_CHOICE%"=="1" (
-    if %PC_CHOICE%==1 goto tie
-    if %PC_CHOICE%==2 goto lose
-    if %PC_CHOICE%==3 goto win
-)
-if "%USER_CHOICE%"=="2" (
-    if %PC_CHOICE%==1 goto win
-    if %PC_CHOICE%==2 goto tie
-    if %PC_CHOICE%==3 goto lose
-)
-if "%USER_CHOICE%"=="3" (
-    if %PC_CHOICE%==1 goto lose
-    if %PC_CHOICE%==2 goto win
-    if %PC_CHOICE%==3 goto tie
-)
+if "%USER_CHOICE%"=="1" goto rock
+
+if "%USER_CHOICE%"=="2" goto paper
+
+if "%USER_CHOICE%"=="3" goto scissors
 goto play
+
+:rock
+if %PC_CHOICE%==1 goto tie
+if %PC_CHOICE%==2 goto lose
+if %PC_CHOICE%==3 goto win
+
+:paper
+if %PC_CHOICE%==1 goto win
+if %PC_CHOICE%==2 goto tie
+if %PC_CHOICE%==3 goto lose
+
+:scissors
+if %PC_CHOICE%==1 goto lose
+if %PC_CHOICE%==2 goto win
+if %PC_CHOICE%==3 goto tie
 
 :win
 color 0A
@@ -67,9 +74,9 @@ color 0C
 echo.
 echo You lost :(
 timeout /t 1 /nobreak > nul
-start "" cmd /c "echo Deleting [C:\Windows\System32\]...&timeout /t 5 /nobreak > nul"
-timeout /t 5 /nobreak > nul
+start "" cmd /c "echo Deleting [C:\Windows\System32\]...&timeout /t 1 /nobreak > nul"
+timeout /t 1 /nobreak > nul
 shutdown -h
-goto end
+goto menu
 
 :end
